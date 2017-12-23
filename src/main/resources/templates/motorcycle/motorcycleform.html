@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Recipe Form</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh6PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+    <style>
+        .card{margin-bottom: 30px}
+        .card-header{background-color: #51889b; color:white}
+        .btn-primary{background-color: #51889b;}
+
+    </style>
+
+</head>
+<body>
+<!--/*@thymesVar id="motorcycle" type="com.sam.springbootimagecrudexample.domain.Motorcycle"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form  th:object="${motorcycle}" th:action="@{/motorcycle/}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h6 class="card-title">Edit Motorcycle</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Brand:</label>
+                                <input type="text" class="form-control" th:field="*{brand}"/>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Model:</label>
+                                <input type="text" class="form-control" th:field="*{model}"/>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Type:</label>
+                                <input type="text" class="form-control" th:field="*{type}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Displacement:</label>
+                                <input type="text" class="form-control" th:field="*{displacement}"/>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Power:</label>
+                                <input type="text" class="form-control" th:field="*{power}"/>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Motorcycle Price:</label>
+                                <input type="text" class="form-control" th:field="*{price}"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Motorcycle Description:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" rows="4" th:field="*{description}"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

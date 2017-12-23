@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Show Recipe</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh6PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+
+    <style>
+        .card{margin-bottom: 30px}
+        .card-header{background-color: #51889b; color:white}
+        .btn{color:white}
+
+    </style>
+</head>
+<body>
+<!--/*@thymesVar id="motorcycle" type="com.sam.springbootimagecrudexample.domain.Motorcycle"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+
+
+
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h6 class="card-title" th:text="${motorcycle.brand +' - ' + motorcycle.model}">S1000RR</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'/motorcycle/' + ${motorcycle.id} + '/image'}" role="button">Change Image</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-6"><h6>Brand : </h6></div>
+                                <div class="col-md-6"><p th:text="${motorcycle.brand}">BMW</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><h6>Model : </h6> </div>
+                                <div class="col-md-6"><p th:text="${motorcycle.model}">s1000RR</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><h6>Type : </h6></div>
+                                <div class="col-md-6"><p th:text="${motorcycle.type}">spor</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><h6>Displacement : </h6></div>
+                                <div class="col-md-6"><p th:text="${motorcycle.displacement + 'cc'}">999cc</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><h6>Power : </h6></div>
+                                <div class="col-md-6"><p th:text="${motorcycle.power + 'hp'}">199hp</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><h6>Price : </h6></div>
+                                <div class="col-md-6"><p th:text="${motorcycle.price + '$'}">22000$</p></div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <img src="../../static/images/guacamole400x400WithX.jpg"
+                                 th:src="@{'/motorcycle/' + ${motorcycle.id} + '/motorcycleimage'}"
+                                 width="360" height="240">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"><H6>Description</H6></div>
+                        <div class="col-md-12"><p th:text="${motorcycle.description}">description ...</p></H6></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

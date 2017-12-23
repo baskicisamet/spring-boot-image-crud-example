@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Motorcycles</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+
+    <style>
+        .card{margin-bottom: 30px}
+        .card-header{background-color: #51889b; color:white}
+        .btn{color:white}
+
+    </style>
+</head>
+<body>
+<!--/*@thymesVar id="motorcycles" type="java.util.List"*/-->
+<!--/*@thymesVar id="motorcycle" type="com.sam.springbootimagecrudexample.domain.Motorcycle"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-primary">
+
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h6 class="card-title">Motorcycles</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'motorcycle/new'}" role="button">new motorcycle</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(motorcycles)}">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>ID</th>
+                                <th>brand-model</th>
+                                <th>View</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+
+                            </tr>
+                            </thead>
+                            <tr th:remove="all">
+                                <td>123</td>
+                                <td>BMW - S1000RR</td>
+                                <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
+                                <td><a href="#">Delete</a></td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td>12333</td>
+                                <td>BMW - S1000RR</td>
+                                <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
+                                <td><a href="#">Delete</a></td>
+                            </tr>
+                            <tr th:each="motorcycle : ${motorcycles}">
+                                <td th:text="${motorcycle.id}">334</td>
+                                <td th:text="${motorcycle.brand + ' - ' + motorcycle.model}">BMW - S1000RR</td>
+                                <td><a href="#" th:href="@{'/motorcycle/' + ${motorcycle.id} + '/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/motorcycle/' + ${motorcycle.id} + '/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/motorcycle/' + ${motorcycle.id} + '/delete'}">Delete</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
