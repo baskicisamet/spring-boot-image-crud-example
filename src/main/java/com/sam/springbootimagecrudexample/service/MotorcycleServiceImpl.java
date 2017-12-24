@@ -1,6 +1,7 @@
 package com.sam.springbootimagecrudexample.service;
 
 import com.sam.springbootimagecrudexample.domain.Motorcycle;
+import com.sam.springbootimagecrudexample.exception.NotFoundException;
 import com.sam.springbootimagecrudexample.repository.MotorcycleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class MotorcycleServiceImpl implements  MotorcycleService {
     public Motorcycle findById(Long id) {
         Optional<Motorcycle> motorcycle = motorcycleRepository.findById(id);
         if(!motorcycle.isPresent()){
-            throw new RuntimeException("Motorcycle not found");
+            throw new NotFoundException("Motorcycle not found with this id " + id );
         }
         return motorcycle.get();
     }
@@ -47,7 +48,7 @@ public class MotorcycleServiceImpl implements  MotorcycleService {
     @Override
     public void deleteById(Long id) {
         if(!motorcycleRepository.existsById(id)){
-            throw new RuntimeException("There isn't already Motorcycle with this id : " + id);
+            throw new NotFoundException("There isn't already Motorcycle with this id : " + id);
         }
         motorcycleRepository.deleteById(id);
     }
