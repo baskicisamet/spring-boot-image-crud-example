@@ -30,7 +30,7 @@ public class ControllerExceptionHandler{
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("errorpage");
         modelAndView.addObject("errorTitle", "Unknown Exception ! ");
-        modelAndView.addObject("errorDescription", "please contact your administration!");
+        modelAndView.addObject("errorDescription", "please contact your administration!\n\n" + exception.getMessage());
 
         return modelAndView;
     }

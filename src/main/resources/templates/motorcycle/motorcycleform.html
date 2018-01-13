@@ -11,8 +11,9 @@
           th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}">
     <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            integrity="sha384-alpBpkh6PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
             crossorigin="anonymous"
             th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
     <style>
@@ -29,6 +30,9 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form  th:object="${motorcycle}" th:action="@{/motorcycle/}" method="POST">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>There are some invalid data</p>
+                </div>
                 <input type="hidden" th:field="*{id}"/>
 
                 <div class="card card-primary">
@@ -39,11 +43,24 @@
                         <div class="row">
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Brand:</label>
-                                <input type="text" class="form-control" th:field="*{brand}"/>
+                                <input type="text" class="form-control"  th:class="${#fields.hasErrors('brand')}
+                                ? 'form-control is-invalid' : 'form-control'" th:field="*{brand}"/>
+                                <span  th:if="${#fields.hasErrors('brand')}">
+                                    <ul>
+                                        <li class="text-danger" th:each="err : ${#fields.errors('brand')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
+
                             </div>
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Model:</label>
-                                <input type="text" class="form-control" th:field="*{model}"/>
+                                <input type="text" class="form-control" th:class="${#fields.hasErrors('model')}
+                                ? 'form-control is-invalid' : 'form-control'" th:field="*{model}"/>
+                                <span  th:if="${#fields.hasErrors('model')}">
+                                    <ul>
+                                        <li class="text-danger" th:each="err : ${#fields.errors('model')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Type:</label>
@@ -53,15 +70,27 @@
                         <div class="row">
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Displacement:</label>
-                                <input type="text" class="form-control" th:field="*{displacement}"/>
+                                <input type="text" class="form-control" th:class="${#fields.hasErrors('displacement')}
+                                ? 'form-control is-invalid' : 'form-control'" th:field="*{displacement}"/>
+                                <div  th:if="${#fields.hasErrors('displacement')}">
+                                    <ul>
+                                        <li class="text-danger" th:each="err : ${#fields.errors('displacement')}" th:text="${err}"/>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Power:</label>
-                                <input type="text" class="form-control" th:field="*{power}"/>
+                                <input type="text" class="form-control" th:class="${#fields.hasErrors('power')}
+                                ? 'form-control is-invalid' : 'form-control'" th:field="*{power}"/>
+                                <span  th:if="${#fields.hasErrors('power')}">
+                                    <ul>
+                                        <li class="text-danger" th:each="err : ${#fields.errors('power')}" th:text="${err}"/>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label>Motorcycle Price:</label>
-                                <input type="text" class="form-control" th:field="*{price}"/>
+                                <input type="text" class="form-control"  th:field="*{price}"/>
                             </div>
                         </div>
 

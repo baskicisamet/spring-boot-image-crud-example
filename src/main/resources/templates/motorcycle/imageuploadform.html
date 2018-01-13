@@ -37,9 +37,15 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
-                                       th:action="@{'/motorcycle/' + ${motorcycle.getId()} + '/image'}">
+                                        th:object="${imageFileModel}" th:action="@{'/motorcycle/' + ${imageFileModel.getId()} + '/image'}">
+                                    <input type="hidden" th:field="*{id}"/>
                                     <label class="control-label">Select File</label>
-                                    <input id="imagefile" name="imagefile" type="file" class="file">
+                                    <input id="file" name="file" type="file" class="file">
+                                    <span  th:if="${#fields.hasErrors('file')}">
+                                        <ul>
+                                            <li class="text-danger" th:each="err : ${#fields.errors('file')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>

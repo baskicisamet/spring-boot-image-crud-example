@@ -1,18 +1,19 @@
 package com.sam.springbootimagecrudexample.controller;
 
+import com.sam.springbootimagecrudexample.domain.ImageFileModel;
 import com.sam.springbootimagecrudexample.domain.Motorcycle;
 import com.sam.springbootimagecrudexample.service.ImageService;
 import com.sam.springbootimagecrudexample.service.MotorcycleService;
+import com.sam.springbootimagecrudexample.validator.ImageValidator;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +33,11 @@ public class ImageController {
     @GetMapping("motorcycle/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model){
 
-        model.addAttribute("motorcycle",motorcycleService.findById(Long.valueOf(id)));
+
+       ImageFileModel imageFileModel = new ImageFileModel();
+       imageFileModel.setId(Long.valueOf(id));
+
+       model.addAttribute("imageFileModel",imageFileModel);
 
         return "motorcycle/imageuploadform";
     }
@@ -42,7 +47,6 @@ public class ImageController {
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
 
         Motorcycle motorcycle = motorcycleService.findById(Long.valueOf(id));
-
         if(motorcycle == null){
             throw new RuntimeException("there is no motorcycle with this id : " + id);
         }
@@ -65,9 +69,16 @@ public class ImageController {
 
 
     @PostMapping("motorcycle/{id}/image")
-    public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
+    public String handleImagePost(@PathVariable String id, @ModelAttribute ImageFileModel fileModel, BindingResult bindingResult){
 
-        imageService.saveImageFile(Long.valueOf(id),file);
+        new ImageValidator().validate(fileModel,bindingResult);
+
+        if(bindingResult.hasErrors()){
+            System.out.println("DEBUG INFO ::::::::::::::: inside error condition for this id : " + id);
+            return "motorcycle/imageuploadform";
+        }
+
+        imageService.saveImageFile(Long.valueOf(id),fileModel.getFile());
 
         return "redirect:/motorcycle/" + id + "/show/";
 

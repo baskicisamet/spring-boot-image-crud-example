@@ -1,6 +1,7 @@
 package com.sam.springbootimagecrudexample.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Motorcycle {
@@ -8,11 +9,23 @@ public class Motorcycle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Size(min = 2,max = 100)
     private String brand;
+
+    @Size(min = 2,max = 30)
     private String model;
+
     private String type;
+
+    @Max(2000)
+    @Min(30)
     private Integer displacement;
+
+    @Max(value = 500,message = "power have to be less then 500")
     private Integer power;
+
     @Lob
     private String description;
     private float price;
